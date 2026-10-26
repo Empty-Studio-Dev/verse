@@ -1,15 +1,14 @@
 from fastapi import FastAPI
-from database.database import supabase
+from database import supabase 
+from database import Base, engine
+from models import User, Post, Like, Comment, Book
+
+print("Таблицы моделей:", list(Base.metadata.tables))
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-@app.get("/health/db")
-def health_db():
-    try:
-        res = supabase.table("test").select("*").limit(1).execute()
-        return {"ok": True, "rows": len(res.data)}
-    except Exception as e:
-        return {"ok": False, "error": f"{type(e).__name__}: {e}"}
+
 
 # source .venv/bin/activate  
 # uvicorn app.main:app --reload
