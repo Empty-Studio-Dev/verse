@@ -21,6 +21,6 @@ class UserLogin(BaseModel):
 
 class UpdateUserBase(BaseModel):
     name: str = Field(min_length=1, max_length=26)
-    bio: str = Field(min_length=0, max_length=180)
-    profile_img: str
-    bacgroung_img: str
+    bio: str | None = Field(default=None, max_length=180)
+    profile_img: str | None = None
+    bacgroung_img: str | None = None
