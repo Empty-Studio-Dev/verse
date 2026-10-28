@@ -15,12 +15,12 @@ async def login(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Ses
     user = db.query(User).filter(User.email == user_credentials.username).first()
 
     if not user:
-        return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User not found")
 
     verified = verify(user_credentials.password, user.password)
 
     if not verified:
-        return HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=f"Incorrect password")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=f"Incorrect password")
 
     access_token = create_access_token(data={"user_id": user.user_id})
 
