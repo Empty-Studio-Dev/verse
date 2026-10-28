@@ -7,7 +7,7 @@ class CreateUser(BaseModel):
     password: str  = Field(min_length=8, max_length=72)
 
 class UserOut(BaseModel):
-    id: int
+    user_id: int
     name: str
     email: EmailStr
     created_at: datetime
