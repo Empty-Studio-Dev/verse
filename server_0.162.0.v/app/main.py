@@ -10,8 +10,6 @@ app = FastAPI()
 TODO: 
  1) OAuth2 witch Google
  2) full Auth
- 3) Check password valid password
- 4) Check valid email
  --------------------
  1) Need made pdf wraper for Json data where user open book
  2) AI assistend??? need check

@@ -8,6 +8,13 @@ class CreateUser(BaseModel):
     email: EmailStr
     password: str  = Field(min_length=8, max_length=72)
 
+
+    """
+        this method for check validation password
+        if password 8 - 72 characters and have
+        special character
+        validate complited
+    """
     @field_validator("password")
     @classmethod
     def validate_password(cls, value: str) -> str:
