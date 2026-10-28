@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, func
 from sqlalchemy.orm import relationship
-from database.database import Base
+from database import Base
 
 
 class Book(Base):

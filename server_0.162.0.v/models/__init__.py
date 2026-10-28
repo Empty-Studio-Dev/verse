@@ -3,5 +3,6 @@ from .post import Post
 from .like import Like
 from .comment import Comment
 from .book import Book
+from .password_reset import PasswordResetToken
 
-__all__ = ["User", "Post", "Like", "Comment", "Book"]
+__all__ = ["User", "Post", "Like", "Comment", "Book", "PasswordResetToken"]

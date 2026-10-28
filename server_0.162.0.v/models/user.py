@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, func
 from sqlalchemy.orm import relationship
-from database.database import Base
+from database import Base
 
 
 
@@ -22,3 +22,5 @@ class User(Base):
     )
     comments = relationship("Comment", back_populates="user", passive_deletes=True)
     likes = relationship("Like", back_populates="user", passive_deletes=True)
+    # added choice user and reset password
+    reset_tokens = relationship("PasswordResetToken", back_populates="user", cascade="all, delete-orphan", passive_deletes=True,)

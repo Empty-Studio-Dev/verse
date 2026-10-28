@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, func
 from sqlalchemy.orm import relationship
 from datetime import date as py_date
 from sqlalchemy import DateTime, func
-from database.database import Base
+from database import Base
 
 class Comment(Base):
     __tablename__ = "comments"
