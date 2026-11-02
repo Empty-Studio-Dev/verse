@@ -4,6 +4,7 @@ from database import get_db
 from schemas import CreateUser, UserOut
 from sqlalchemy.orm import Session
 from core import hash
+from core import get_current_user
 
 router = APIRouter(
     prefix = "/users"
@@ -27,4 +28,17 @@ async def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     return user
+
+@router.delete("/me", status_code=status.HTTP_204_NO_CONTENT)
+def delete_my_account(db: Session = Depends(get_db), token_data = Depends(get_current_user)):
+    user = db.query(User).filter(User.user_id == int(token_data.id)).first()
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+
+    db.delete(user)
+    db.commit()
+    return None
 

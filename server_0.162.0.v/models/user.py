@@ -20,7 +20,7 @@ class User(Base):
         "Post", back_populates="user",
         cascade="all, delete-orphan", passive_deletes=True,
     )
-    comments = relationship("Comment", back_populates="user", passive_deletes=True)
-    likes = relationship("Like", back_populates="user", passive_deletes=True)
+    comments = relationship("Comment", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
+    likes = relationship("Like", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
     # added choice user and reset password
     reset_tokens = relationship("PasswordResetToken", back_populates="user", cascade="all, delete-orphan", passive_deletes=True,)
