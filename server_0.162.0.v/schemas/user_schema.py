@@ -1,5 +1,5 @@
 import re
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator, ConfigDict
 from datetime import datetime
 from utils import password_regex
 
@@ -33,17 +33,19 @@ class UserOut(BaseModel):
     user_id: int
     name: str
     email: EmailStr
+    bio: str | None = None
+    profile_img: str | None = None
+    background_img: str | None = None
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class UserLogin(BaseModel):
     email: EmailStr
     password: str = Field(min_length=8, max_length=72)
 
 class UpdateUserBase(BaseModel):
-    name: str = Field(min_length=1, max_length=26)
+    name: str | None = Field(default=None, min_length=1, max_length=26)
     bio: str | None = Field(default=None, max_length=180)
     profile_img: str | None = None
-    bacgroung_img: str | None = None
+    background_img: str | None = None
