@@ -14,5 +14,14 @@ router = APIRouter(
 
 @router.get("")
 def get_all_posts(db: Session = Depends(get_db), current_user = Depends(get_current_user)):
-    post = (db.query(Post).filter(Post.user_id == current_user.id).all())
-    return {"posts": post}
+    posts = (db.query(Post).all())
+    return {"posts": posts}
+
+# get one propurti post
+@router.get("/{id}")
+def get_post_by_id(id: int, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
+    post = db.query(Post).filter(Post.id == id, Post.user_id == current_user.id).first()
+
+    if not post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
+    return {"post": post}
