@@ -1,23 +1,11 @@
 import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
-from sqlalchemy.ext.compiler import compiles
+
 from app.main import app
 from database.database import Base, get_db
-
-# making ARRAY compatible with SQLite
-from sqlalchemy import ARRAY as GenericARRAY
-from sqlalchemy.dialects.postgresql import ARRAY as PGARRAY
-
-@compiles(GenericARRAY, "sqlite")
-def _compile_generic_array_sqlite(element, compiler, **kw):
-    return "JSON"
-
-@compiles(PGARRAY, "sqlite")
-def _compile_pg_array_sqlite(element, compiler, **kw):
-    return "JSON"
 
 TEST_DATABASE_URL = "sqlite:///:memory:"
 
@@ -26,6 +14,14 @@ engine = create_engine(
     connect_args={"check_same_thread": False},
     poolclass=StaticPool,
 )
+
+@event.listens_for(engine, "connect")
+def _fk_on(dbapi_conn, _):
+    cur = dbapi_conn.cursor()
+    cur.execute("PRAGMA foreign_keys=ON")
+    cur.close()
+
+
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
@@ -43,10 +39,7 @@ def db_session():
 @pytest.fixture
 def client(db_session):
     def override_get_db():
-        try:
-            yield db_session
-        finally:
-            pass
+        yield db_session
 
     app.dependency_overrides[get_db] = override_get_db
     yield TestClient(app)
@@ -61,5 +54,15 @@ def test_user(client):
         "password": "TestPass123!",
     }
     res = client.post("/users", json=user_data)
-    assert res.status_code == 201
+    assert res.status_code == 201, res.text
     return {**res.json(), "password": user_data["password"]}
+
+
+@pytest.fixture
+def auth_headers(client, test_user):
+    res = client.post("/login", data={
+        "username": test_user["email"],
+        "password": test_user["password"],
+    })
+    assert res.status_code == 200, res.text
+    return {"Authorization": f"Bearer {res.json()['access_token']}"}

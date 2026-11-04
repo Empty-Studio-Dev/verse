@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, func
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, func, JSON
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import relationship
 from database import Base
@@ -10,7 +10,7 @@ class Post(Base):
     post_id = Column(Integer, primary_key=True)
     title = Column(String(100), nullable=False)
     description = Column(String(220), nullable=False)
-    post_img = Column(ARRAY(String), nullable=True)
+    post_img = Column(ARRAY(String).with_variant(JSON, "sqlite"), nullable=True,)
     file = Column(String, nullable=True)
     user_id = Column(
         Integer,

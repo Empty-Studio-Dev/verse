@@ -37,7 +37,7 @@ def _get_owned_post(post_id: int, db: Session, current_user: User) -> Post:
 
 @router.get("", response_model=list[PostOut])
 def get_all_posts(db: Session = Depends(get_db)):
-    return db.query(Post).order_by(Post.created_at.desc()).all()
+    return db.query(Post).order_by(Post.created_at.desc(), Post.post_id.desc()).all()
 
 # get one propurti post
 @router.get("/{post_id}", response_model=PostOut)
