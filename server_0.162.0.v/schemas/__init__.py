@@ -1,6 +1,6 @@
 from .book_schema import BookBase
 from .comment_schema import CommentBase
-from .post_schema import PostBase, UpdatePostBase
+from .post_schema import PostCreate, PostReplace, PostUpdate, PostOut
 from .token_schema import Token, TokenData
 from .user_schema import CreateUser, UserOut, UserLogin, UpdateUserBase
 from .password_schema import ForgotPasswordRequest, ResetPasswordRequest, ChangePasswordRequest
@@ -8,8 +8,8 @@ from .password_schema import ForgotPasswordRequest, ResetPasswordRequest, Change
 __all__ = [
     BookBase, 
     CommentBase, 
-    PostBase, 
-    UpdatePostBase, 
+    PostCreate, 
+    PostReplace, 
     Token, 
     TokenData, 
     CreateUser, 
@@ -18,5 +18,7 @@ __all__ = [
     UpdateUserBase,
     ForgotPasswordRequest,
     ResetPasswordRequest,
-    ChangePasswordRequest
+    ChangePasswordRequest,
+    PostUpdate,
+    PostOut
 ]
