@@ -4,6 +4,7 @@ from .post_schema import PostCreate, PostReplace, PostUpdate, PostOut
 from .token_schema import Token, TokenData
 from .user_schema import CreateUser, UserOut, UserLogin, UpdateUserBase
 from .password_schema import ForgotPasswordRequest, ResetPasswordRequest, ChangePasswordRequest
+from .like_schema import LikeToggleOut
 
 __all__ = [
     BookBase, 
@@ -23,5 +24,6 @@ __all__ = [
     PostOut,
     CommentCreate,
     CommentAuthor,
-    CommentOut
+    CommentOut,
+    LikeToggleOut
 ]

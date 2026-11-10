@@ -4,6 +4,7 @@ from .password_router import forgot_password, reset_password, change_password
 from .post_router import get_all_posts, get_post_by_id, create_post, replace_post, update_post, delete_post
 from .book_router import get_all_books, get_book_by_id
 from .comment_router import get_post_comments, create_comment
+from .like_router import toggle_post_like, get_post_like_status, toggle_book_like, get_my_liked_posts, get_my_liked_books
 
 __all__ = [
     create_user,
@@ -21,5 +22,10 @@ __all__ = [
     get_all_books,
     get_book_by_id,
     get_post_comments,
-    create_comment
+    create_comment,
+    toggle_post_like,
+    get_post_like_status,
+    toggle_book_like,
+    get_my_liked_posts,
+    get_my_liked_books
 ]
