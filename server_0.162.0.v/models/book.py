@@ -14,4 +14,4 @@ class Book(Base):
     file = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
 
-    likes = relationship("Like", back_populates="book", passive_deletes=True)
+    likes = relationship("Like", back_populates="book", cascade="all, delete-orphan", passive_deletes=True)

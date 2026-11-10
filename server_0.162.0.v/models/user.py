@@ -24,3 +24,4 @@ class User(Base):
     likes = relationship("Like", back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
     # added choice user and reset password
     reset_tokens = relationship("PasswordResetToken", back_populates="user", cascade="all, delete-orphan", passive_deletes=True,)
+    
