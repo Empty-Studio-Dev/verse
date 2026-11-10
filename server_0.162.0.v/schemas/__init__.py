@@ -1,5 +1,5 @@
 from .book_schema import BookBase
-from .comment_schema import CommentBase
+from .comment_schema import CommentBase, CommentCreate, CommentAuthor, CommentOut
 from .post_schema import PostCreate, PostReplace, PostUpdate, PostOut
 from .token_schema import Token, TokenData
 from .user_schema import CreateUser, UserOut, UserLogin, UpdateUserBase
@@ -20,5 +20,8 @@ __all__ = [
     ResetPasswordRequest,
     ChangePasswordRequest,
     PostUpdate,
-    PostOut
+    PostOut,
+    CommentCreate,
+    CommentAuthor,
+    CommentOut
 ]

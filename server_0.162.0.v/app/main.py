@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from database import Base, engine
-from routers import user_router, auth_router, password_router, post_router, book_router
+from routers import user_router, auth_router, password_router, post_router, book_router, comment_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -21,6 +21,7 @@ app.include_router(auth_router.router)
 app.include_router(password_router.router)
 app.include_router(post_router.router)
 app.include_router(book_router.router)
+app.include_router(comment_router.router)
 
 # source .venv/bin/activate  
 # uvicorn app.main:app --reload

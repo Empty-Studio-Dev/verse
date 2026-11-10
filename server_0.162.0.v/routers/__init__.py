@@ -3,6 +3,7 @@ from .auth_router import login
 from .password_router import forgot_password, reset_password, change_password
 from .post_router import get_all_posts, get_post_by_id, create_post, replace_post, update_post, delete_post
 from .book_router import get_all_books, get_book_by_id
+from .comment_router import get_post_comments, create_comment
 
 __all__ = [
     create_user,
@@ -18,5 +19,7 @@ __all__ = [
     delete_post,
     replace_post,
     get_all_books,
-    get_book_by_id
+    get_book_by_id,
+    get_post_comments,
+    create_comment
 ]
