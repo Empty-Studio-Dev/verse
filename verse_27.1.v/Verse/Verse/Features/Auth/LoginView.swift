@@ -1,8 +1,8 @@
 import SwiftUI
-import SwiftData
 
-struct ContentView: View {
+struct LoginView: View {
     @State private var showSplash = true
+    @State private var emailText = ""
     
     var body: some View {
         ZStack {
@@ -11,7 +11,12 @@ struct ContentView: View {
                     .transition(.opacity)
                     .animation(.easeOut(duration: 1.5))
             } else {
-                Text("Hi there!")
+                VStack {
+//                    Component for Input
+//                    CustomTextFieldView(text: $emailText, placeholder: "Email...")
+                    CustomButtomView(title: "Send") {}
+                }
+                
             }
         }
         .onAppear {
@@ -28,5 +33,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    LoginView()
 }
